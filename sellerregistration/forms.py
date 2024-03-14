@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Seller
+from .models import Seller, Customer
 
 
 class SellerForm(forms.ModelForm):
@@ -16,6 +16,32 @@ class SellerForm(forms.ModelForm):
     class Meta:
         model = Seller
         fields = ['StallName', 'SellerName', 'ContactNo', 'Address', 'Username', 'Password', 'ConfirmPassword']
+        widgets = {
+            'Password': forms.PasswordInput,
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('Password')
+        confirm_password = cleaned_data.get('ConfirmPassword')
+
+        if password and confirm_password:
+            if password != confirm_password:
+                raise ValidationError("Password and Confirm Password fields do not match.")
+
+
+# CustomerForm (para sa HTML)
+class CustomerForm(forms.ModelForm):
+    CustomerName = forms.CharField(label='Customer Name', max_length=255)
+    ContactNo = forms.IntegerField(label='Contact Number')
+    Address = forms.CharField(label='Address', max_length=255)
+    Username = forms.CharField(label='Username', max_length=20)
+    Password = forms.CharField(label='Password', max_length=128, widget=forms.PasswordInput)
+    ConfirmPassword = forms.CharField(label='Confirm Password', max_length=128, widget=forms.PasswordInput)
+
+    class Meta:
+        model = Customer
+        fields = ['CustomerName', 'ContactNo', 'Address', 'Username', 'Password', 'ConfirmPassword']
         widgets = {
             'Password': forms.PasswordInput,
         }

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <title>Customer Information Update Page | Simple E-Commerce</title>
+</head>
+<body>
+    <h1>Rocket Basket: Shop Fast, Ship Faster - Customer Information Update Page</h1>
+    <p>Update your customer information below:</p>
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update</button>
+</form>
+</body>
+</html>

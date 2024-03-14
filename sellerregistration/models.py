@@ -8,9 +8,21 @@ class Seller(models.Model):
     SellerName = models.CharField(max_length=255)
     ContactNo = models.IntegerField()
     Address = models.CharField(max_length=255)
-    Username = models.CharField(max_length=20)
-    Password = models.CharField(max_length=128) #increased length of password field to 128 for the hash value
+    Username = models.CharField(max_length=20, unique=True)
+    Password = models.CharField(max_length=128)  # increased length of password field to 128 for the hash value
 
     def save(self, *args, **kwargs):
         self.Password = make_password(self.Password)
         super(Seller, self).save(*args, **kwargs)
+
+
+class Customer(models.Model):
+    CustomerName = models.CharField(max_length=255, unique=True)
+    ContactNo = models.IntegerField()
+    Address = models.CharField(max_length=255)
+    Username = models.CharField(max_length=20)
+    Password = models.CharField(max_length=128)
+
+    def save(self, *args, **kwargs):
+        self.Password = make_password(self.Password)
+        super(Customer, self).save(*args, **kwargs)

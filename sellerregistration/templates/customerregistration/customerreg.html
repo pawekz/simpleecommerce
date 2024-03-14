@@ -4,21 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <title>Seller Registration Page | Simple E-Commerce</title>
+    <title>Customer Registration Page | Simple E-Commerce</title>
 </head>
 <body>
- <h1>Rocket Basket: Shop Fast, Ship Faster - Seller Registration</h1>
+ <h1>Rocket Basket: Shop Fast, Ship Faster - Customer Registration</h1>
     <form method="post" class="form-container">
     {% csrf_token %}
     {% comment %}{{ form.as_p }}{% endcomment %}
         <div class="form-left input">
             <div>
-                {{ form.StallName.label_tag }}
-                {{ form.StallName }}
-            </div>
-            <div>
-                {{ form.SellerName.label_tag }}
-                {{ form.SellerName }}
+                {{ form.CustomerName.label_tag }}
+                {{ form.CustomerName }}
             </div>
             <div>
                 {{ form.ContactNo.label_tag }}
@@ -61,6 +57,6 @@
         </div>
     {% endfor %}
 {% endif %}
-<p>Looking for products? Register as a <a href="{% url 'customerreg'%}">CUSTOMER</a> instead.</p>
+<p>Looking for products? Register as a <a href="{% url 'sellerreg'%}">SELLER</a> instead.</p>
 </body>
 </html>
